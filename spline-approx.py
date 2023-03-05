@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class Data:
     def __init__(self, x, y):
         self.x = x
@@ -11,12 +12,10 @@ class Data:
     def get_data(self):
         return self.x, self.y, self.xp, self.yp
     
-
-    def splain(self):
+    def spline(self):
         d = []
         n = len(self.x)
         h = [self.x[i + 1] - self.x[i] for i in range(n - 1)]
-
         b = [(self.y[i + 1] - self.y[i]) / h[i] for i in range(n - 1)]
         alpha = [0] * n
         
@@ -42,31 +41,22 @@ class Data:
             d.append((c[el + 1] - c[el]) / (3 * h[el]))
 
         a = self.y[:-1]
-
-
         res = []
 
         for i in range(len(self.x) - 1):
             xs = np.linspace(self.x[i], self.x[i+1], 1000)
             ys = a[i] + b[i]*(xs - self.x[i]) + c[i]*(xs - self.x[i])**2 + d[i]*(xs - self.x[i])**3
             plt.plot(xs, ys)
-
     
 def f(x):
     return 0.01 * np.cos(x ** 0.5 + np.sin(x))
 
-
-# x = np.array([-3, -2.5, -2, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5])
-# y = np.array([5, 3, 2, 1, -1, -2, 0, 1, 0, -1, -2, -3, -5, -3, -2, 0, 2, 3, 4, 6])
-
 x = np.linspace(-10, 10, 100)
 
 data = Data(x, f(x))
-
 plt.plot(x, f(x), "ro")
-data.splain()
-plt.title('splain')
+data.spline()
+plt.title('spline')
 plt.legend()
 plt.show()
-
 
