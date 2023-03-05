@@ -58,5 +58,5 @@ plt.plot(x, f(x), "ro")
 data.spline()
 plt.title('spline')
 plt.legend()
-plt.show()
+plt.show()                             #TODO: написать README
 

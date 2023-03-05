@@ -1,2 +1,3 @@
-# function_approximation
- function approximation codes (first try)
+# Function approximation
+
+Задача аппроксимации функции заключается в ...  
