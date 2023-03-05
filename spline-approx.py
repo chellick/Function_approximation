@@ -49,9 +49,10 @@ class Data:
             plt.plot(xs, ys)
     
 def f(x):
-    return 0.01 * np.cos(x ** 0.5 + np.sin(x))
+    # return 0.01 * np.cos(x ** 0.5 + np.sin(x))
+    return x ** 2
 
-x = np.linspace(-10, 10, 100)
+x = np.linspace(-10, 10, 25)
 
 data = Data(x, f(x))
 plt.plot(x, f(x), "ro")
