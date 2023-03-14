@@ -52,12 +52,13 @@ def f(x):
     # return 0.01 * np.cos(x ** 0.5 + np.sin(x))
     return x ** 2
 
-x = np.linspace(-10, 10, 25)
+x = np.linspace(-10, 10, 50)
 
 data = Data(x, f(x))
-plt.plot(x, f(x), "ro")
+plt.plot(x, f(x), "bo")
 data.spline()
-plt.title('spline')
-plt.legend()
+data.get_data()
+# plt.title('spline')
+# plt.legend()
 plt.show()                             #TODO: написать README
 
