@@ -65,25 +65,19 @@ class Matrix:
         cols = len(self.data[0]) if rows > 0 else 0
         return (rows, cols)
 
+    def T(self):
+        result = Matrix.zeros(self.shape()[0], self.shape()[1])
+        for i in range(len(self.data)):
+            for j in range(len(self.data[0])):
+                result.data[j][i] = self.data[i][j]
+        return result
     
 
     @staticmethod
     def zeros(rows, cols):
         return Matrix([[0] * cols for _ in range(rows)])
 
-m1 = Matrix([[1, 2, 3], 
-             [1, 2, 3], 
-             [1, 2, 3]])
 
-m2 = Matrix([[1, 2, 3], 
-             [1, 2, 3], 
-             [1, 2, 3]])
- 
-
-
-
-
-print((m1 * m2).shape())
 
 
 
