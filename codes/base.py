@@ -20,34 +20,55 @@ class Vector(list):
     def __ne__(self, other):
         return not self == other
 
-    # def __repr__(self):
-    #     return '[' + ', '.join(map(str, self)) + ']'
+    def __repr__(self):
+        return '[' + ', '.join(map(str, self)) + ']'
 
-# Пример использования
 v1 = Vector([1, 2, 3])
 v2 = Vector([4, 5, 6])
 
-# print(v1)  # Вывод: [1, 2, 3]
-# print(v1 + v2)  # Вывод: [5, 7, 9]
-
-    
-    
-
 class Matrix:
-    def __init__(self, array):
-        self.array = array
+    def __init__(self, data):
+        self.data = [Vector(row) for row in data]
 
-    def __getattributes__(self):
-        return self.__dict__
+    def __add__(self, other):
+        return Matrix([row1 + row2 for row1, row2 in zip(self.data, other.data)])
+
+    def __sub__(self, other):
+        return Matrix([row1 - row2 for row1, row2 in zip(self.data, other.data)])
+
+    def __mul__(self, other):
+        if isinstance(other, Matrix):
+            if len(self.data[0]) != len(other.data):
+                raise ValueError("Matrix dimensions do not match for multiplication.")
+            result = Matrix.zeros(len(self.data), len(other.data[0]))
+            for i in range(len(self.data)):
+                for j in range(len(other.data[0])):
+                    for k in range(len(other.data)):
+                        result.data[i][j] += self.data[i][k] * other.data[k][j]
+            return result
+        else:
+            return Matrix([row * other for row in self.data])
+
+    def __truediv__(self, other):
+        return Matrix([row / other for row in self.data])
+
+    def __eq__(self, other):
+        return all(row1 == row2 for row1, row2 in zip(self.data, other.data))
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __repr__(self):
+        return '\n'.join(map(str, self.data))
+
+    @staticmethod
+    def zeros(rows, cols):
+        return Matrix([[0] * cols for _ in range(rows)])
+
+m1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+m2 = Matrix([[9, 8, 7], [6, 5, 4], [3, 2, 1]])
 
 
-a = Vector([8, 6, 7])
-b = Vector([5, 6, 7])
-c = Matrix([a, b])
-
-
-print(len(a))
-print(c.array)
 
 
 
