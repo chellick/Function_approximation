@@ -1,3 +1,4 @@
+
 class Vector(list):
     def __init__(self, array):
         super().__init__(array)
@@ -22,6 +23,14 @@ class Vector(list):
 
     def __repr__(self):
         return '[' + ', '.join(map(str, self)) + ']'
+    
+    def outer(self, other):
+        result = Matrix.zeros(len(self), len(other))
+        for i in range(len(result.data)):
+            for j in range(len(result.data)):
+                result.data[i][j] = self[i] * other[j]
+        return result
+
 
 
 class Matrix:
@@ -70,12 +79,14 @@ class Matrix:
         for i in range(len(self.data)):
             for j in range(len(self.data[0])):
                 result.data[j][i] = self.data[i][j]
-        return result
-    
+        return result   
 
     @staticmethod
     def zeros(rows, cols):
         return Matrix([[0] * cols for _ in range(rows)])
+
+
+
 
 
 
