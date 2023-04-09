@@ -23,8 +23,6 @@ class Vector(list):
     def __repr__(self):
         return '[' + ', '.join(map(str, self)) + ']'
 
-v1 = Vector([1, 2, 3])
-v2 = Vector([4, 5, 6])
 
 class Matrix:
     def __init__(self, data):
@@ -39,6 +37,7 @@ class Matrix:
     def __mul__(self, other):
         if isinstance(other, Matrix):
             if len(self.data[0]) != len(other.data):
+                print(len(self.data[0]), len(other.data))
                 raise ValueError("Matrix dimensions do not match for multiplication.")
             result = Matrix.zeros(len(self.data), len(other.data[0]))
             for i in range(len(self.data)):
@@ -60,28 +59,31 @@ class Matrix:
 
     def __repr__(self):
         return '\n'.join(map(str, self.data))
+    
+    def shape(self):
+        rows = len(self.data)
+        cols = len(self.data[0]) if rows > 0 else 0
+        return (rows, cols)
+
+    
 
     @staticmethod
     def zeros(rows, cols):
         return Matrix([[0] * cols for _ in range(rows)])
 
-m1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-m2 = Matrix([[9, 8, 7], [6, 5, 4], [3, 2, 1]])
+m1 = Matrix([[1, 2, 3], 
+             [1, 2, 3], 
+             [1, 2, 3]])
+
+m2 = Matrix([[1, 2, 3], 
+             [1, 2, 3], 
+             [1, 2, 3]])
+ 
 
 
 
 
+print((m1 * m2).shape())
 
-
-# class Neuron:
-#     def __init__(self, inputs, weights, errors) -> None:
-#         self.inputs = inputs
-#         self.weights = weights
-#         self.errors = errors
-
-#     def __getattributes__(self):
-#         return self.__dict__
-    
-#     # def 
 
 
