@@ -84,11 +84,3 @@ class Matrix:
     @staticmethod
     def zeros(rows, cols):
         return Matrix([[0] * cols for _ in range(rows)])
-
-
-
-
-
-
-
-

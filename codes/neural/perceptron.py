@@ -37,3 +37,45 @@ class Perceptron:
 
 
 
+# Среднеквадратичная ошибка
+def mse(y_true, y_pred):
+    return np.mean((y_true - y_pred) ** 2)
+
+# Градиент функции потерь
+def gradient(X, y, w, b):
+    n = len(y)
+    y_pred = np.dot(X, w) + b
+    dw = -(2 / n) * np.dot(X.T, (y - y_pred))
+    db = -(2 / n) * np.sum(y - y_pred)
+    return dw, db
+
+# Градиентный спуск
+def gradient_descent(X, y, learning_rate=0.01, epochs=100):
+    w = np.zeros(X.shape[1])
+    b = 0
+
+
+    for epoch in range(epochs):
+        # Вычисление градиента
+        dw, db = gradient(X, y, w, b)
+
+        # Обновление параметров
+        w -= learning_rate * dw
+        b -= learning_rate * db
+
+        # Вычисление и вывод функции потерь
+        y_pred = np.dot(X, w) + b
+        loss = mse(y, y_pred)
+
+        print(f"Epoch {epoch + 1}: Loss = {loss:.4f}")
+
+    return w, b
+
+
+X = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])
+y = np.dot(X, np.array([1, 2])) + 3
+
+w, b = gradient_descent(X, y, learning_rate=0.01, epochs=100)
+print(f"Optimized weights: {w}")
+print(f"Optimized bias: {b}")
+
