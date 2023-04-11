@@ -1,14 +1,16 @@
+import matplotlib.pyplot as plt
 from base import *
+from perceptron import *
 
 
-a = Matrix([[1, 2], 
-            [3, 4], 
-            [5, 6]])
+X_train = np.random.randn(100, 3)
+y_train = np.random.randn(100)
 
-b = Matrix([[7, 8, 9], 
-            [10, 11, 12]])
+X_test = np.random.randn(20, 3)
 
-c = Vector([1, 2, 3])
+neuron = Neuron(X_train, y_train)
+neuron.train()
 
-# print(a * c)
-print(a * b)
+y_pred = neuron.predict(X_test)
+
+print("Predictions:", y_pred)
