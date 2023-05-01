@@ -4,23 +4,20 @@ from perceptron import *
 k = 2
 b = 3
 
-# Генерируем значения x и вычисляем соответствующие значения функции
+# Генерация данных
 x = np.linspace(-1, 1, 100)
 y = k * (x ** 2) + b
 
-# Формируем датасет
-dataset = np.column_stack((x, np.full_like(x, k), np.full_like(x, b), y))
+# Разбиение данных на обучающую и тестовую выборки
+train_size = int(0.8 * len(x))
 
-# Перемешиваем датасет
-np.random.shuffle(dataset)
-
-# Разделяем на обучающую и тестовую выборки
-train_data = dataset[:80, :3]
-train_labels = dataset[:80, 3]
-test_data = dataset[80:, :3]
-test_labels = dataset[80:, 3]
+x_train = x[:train_size].reshape(-1, 1)
+y_train = y[:train_size].reshape(-1, 1)
+x_test = x[train_size:].reshape(-1, 1)
+y_test = y[train_size:].reshape(-1, 1)
 
 
-n = Neuron(train_data, train_labels)
-
-print(n.weights1, "\n","\n",  n.weights2, "\n", "\n", n.weights3)
+ 
+n = Neuron(x_train, y_train)
+print(n.forward(n.x_true))
+n.train()
