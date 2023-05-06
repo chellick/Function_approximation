@@ -54,7 +54,7 @@ point = Point(5.4)
 data.add_point(point.get_init())
 
 
-print(inspect.getmembers(Data))
+# print(inspect.getmembers(Data))
 
 plt.plot(data.get_data()[0], data.get_data()[1], "bo")
 plt.plot(data.get_data()[2], data.get_data()[3], "ro")
