@@ -1,23 +1,32 @@
-import numpy as np
 from perceptron import *
-# Задаем параметры функции
-k = 2
-b = 3
+import numpy as np
 
-# Генерация данных
-x = np.linspace(-1, 1, 100)
-y = k * (x ** 2) + b
+x_inputs = np.array([[1, 0], [0, 1], [0, 0], [1, 1]])
+y_inputs = np.array([[0], [0], [1], [0]])
+x, y = x_inputs[0].T, y_inputs[0]
 
-# Разбиение данных на обучающую и тестовую выборки
-train_size = int(0.8 * len(x))
+l = Layer(3, 2)
+l1 = Layer(1, 3)
 
-x_train = x[:train_size].reshape(-1, 1)
-y_train = y[:train_size].reshape(-1, 1)
-x_test = x[train_size:].reshape(-1, 1)
-y_test = y[train_size:].reshape(-1, 1)
+mod = model(x_inputs, y_inputs)
+mod.layers.append(l)
+mod.layers.append(l1)
+
+# print(mod.layers[0].output)
+# print(mod.layers[1].output) # working alright
+
+mod.forward(mod.layers[0], mod.input_x[0])
+mod.forward(mod.layers[1], mod.layers[0].output)
+
+print(mod.layers[0].output)
+print(mod.layers[1].output)
+
+# for i in range(len(mod.layers)):
+#     print(f"weights in {i} layer: \n {mod.layers[i].weights}")
+
+# mod.backward(mod.input_y[0])
 
 
- 
-n = Neuron(x_train, y_train)
-print(n.forward(n.x_true))
-n.train()
+
+# for i in range(len(mod.layers)):
+#     print(f"weights in {i} layer: \n {mod.layers[i].weights}")
