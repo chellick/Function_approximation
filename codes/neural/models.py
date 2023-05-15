@@ -3,20 +3,33 @@ import numpy as np
 # Activation func
 #-------------------------------------------------------------------------
 class Activation_function:
-
     @staticmethod
     def sigma(x):
         return 1 / (1 + np.exp(-x))
-
 
     @staticmethod
     def g_tanh(x):
         return (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))
 
-
     @staticmethod
     def relu(x):
         return np.maximum(0, x)
+
+    @staticmethod
+    def sigma_derivative(x):
+        sigma_x = Activation_function.sigma(x)
+        return sigma_x * (1 - sigma_x)
+
+    @staticmethod
+    def g_tanh_derivative(x):
+        tanh_x = Activation_function.g_tanh(x)
+        return 1 - tanh_x**2
+
+    @staticmethod
+    def relu_derivative(x):
+        return np.where(x > 0, 1, 0)
+
+
 
 
 # Loss func
