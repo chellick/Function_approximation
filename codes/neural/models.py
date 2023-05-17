@@ -82,21 +82,3 @@ class Optimisers:
         dw = -(2 / n) * np.dot(X.T, (y - y_pred))
         db = -(2 / n) * np.sum(y - y_pred)
         return dw, db
-    
-
-
-# def f(a, b, c):
-#     i = a
-
-#     if c > 0:
-#         while i < b:
-#             yield i
-#             i+= c
-
-#     elif c < 0:
-#         while i > b:
-#             yield i
-#             i+= c
-
-# for i in f(1, 10, -1000):
-#     print(i)
