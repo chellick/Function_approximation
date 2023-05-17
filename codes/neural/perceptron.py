@@ -26,7 +26,7 @@ class Layer:
 
 
 class model:
-    def __init__(self, input_x, input_y, epochs=50, learning_rate=1, batch_size=10,
+    def __init__(self, input_x, input_y, epochs=100, learning_rate=0.1, batch_size=10,
                  loss=Loss_function.mean_squared_error, activation=Activation_function.sigma):
                 
         self.input_x = np.array(input_x)
@@ -55,6 +55,7 @@ class model:
     
     def backward(self, error):
         err = [error]
+        
         for layer in reversed(self.layers):
             input_error = self.activation_d(layer.output) * err[-1]
             layer.weights -= layer.input.T * input_error * self.learning_rate
@@ -73,8 +74,5 @@ class model:
                 self.backward(error)
                 err += self.loss(self.input_y[i], self.layers[-1].output)
 
-            print(err / len(self.input_x), 'error')
-
-
-
-
+            print(err / len(self.input_x) * 100, 'error')
+                # print(self.input_y[i])
