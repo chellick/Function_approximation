@@ -40,8 +40,12 @@ class Loss_function:
     
     @staticmethod
     def mean_squared_error(y_true, y_pred):
-        return ((y_true - y_pred) ** 2).mean(axis=-1)
+        return np.mean(np.power(y_true - y_pred, 2))
 
+
+    @staticmethod
+    def mse_derivative(y_true, y_pred):
+        return 2 * (y_pred - y_true) * (1 / y_pred.size)
 
     @staticmethod
     def mean_absolute_error(y_true, y_pred):
@@ -78,3 +82,21 @@ class Optimisers:
         dw = -(2 / n) * np.dot(X.T, (y - y_pred))
         db = -(2 / n) * np.sum(y - y_pred)
         return dw, db
+    
+
+
+# def f(a, b, c):
+#     i = a
+
+#     if c > 0:
+#         while i < b:
+#             yield i
+#             i+= c
+
+#     elif c < 0:
+#         while i > b:
+#             yield i
+#             i+= c
+
+# for i in f(1, 10, -1000):
+#     print(i)
