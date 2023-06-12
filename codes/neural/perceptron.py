@@ -1,7 +1,7 @@
 from typing import Any
 import numpy as np
 from models import *
-import tensorflow as tf
+
 
 
 class Layer:
@@ -20,13 +20,19 @@ class Layer:
     def init_biases(self):
         return np.random.rand(1, self.output_shape) 
     
+    def get_data(self):
+            return np.round(self.weights, 10).tolist(), np.round(self.biases, 10).tolist()
+
     def __getattributes__(self):
         return self.__dict__
     
+    
 
 class model:
-    def __init__(self, input_x, input_y, epochs=100, learning_rate=0.01, batch_size=10,
-                 loss=Loss_function.mean_squared_error, activation=Activation_function.sigma):
+    def __init__(self, input_x, input_y, epochs=100, 
+                 learning_rate=0.01, batch_size=10,
+                 loss=Loss_function.mean_squared_error, 
+                 activation=Activation_function.sigma):
                 
         self.input_x = np.array(input_x)
         self.input_y = np.array(input_y)
@@ -51,17 +57,15 @@ class model:
             self.layers[i].input = self.activation(self.layers[i - 1].output)
             self.layers[i].output = np.dot(self.layers[i].input, self.layers[i].weights) + self.layers[i].biases
 
+        return 
     
     def backward(self, error):
-        err = [error]
         for layer in reversed(self.layers):
-            input_error = self.activation_d(layer.output) * err[-1]
-            layer.weights -= layer.input.T * input_error * self.learning_rate
-            layer.biases -= input_error * self.learning_rate
-            err.append(np.dot(input_error, layer.weights.T))
+            error = error * self.activation_d(layer.output)
+            layer.weights -= error * self.learning_rate * layer.input.T 
+            layer.biases -= error * self.learning_rate
+            # error = np.dot(error, layer.weights.T)
 
-
-        return err
 
     def fit(self):
         for j in range(self.epochs):
@@ -74,3 +78,5 @@ class model:
 
             print(f'{err / len(self.input_x):.3f}, error')
                 # print(self.input_y[i])
+
+                

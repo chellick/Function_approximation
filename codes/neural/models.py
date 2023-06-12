@@ -82,3 +82,13 @@ class Optimisers:
         dw = -(2 / n) * np.dot(X.T, (y - y_pred))
         db = -(2 / n) * np.sum(y - y_pred)
         return dw, db
+
+# Prediction
+#-------------------------------------------------------------------------
+
+def index_of_max(array):
+    return np.argpartition(array, -1)[-1]
+
+
+def the_surest(got, wanted):  # method of finding the surest (on average performs better)
+    return index_of_max(got) == index_of_max(wanted)

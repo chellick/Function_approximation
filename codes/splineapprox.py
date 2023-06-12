@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class Data:
+class Spline:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -54,7 +54,7 @@ def f(x):
 
 x = np.linspace(-10, 10, 50)
 
-data = Data(x, f(x))
+data = Spline(x, f(x))
 plt.plot(x, f(x), "bo")
 data.spline()
 data.get_data()

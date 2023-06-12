@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import inspect
 
-class Data:
+class Interpolation:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -47,7 +47,7 @@ class Point:
 
 x = np.array([0, 1, 2, 3, 4, 5, 6])
 y = np.array([-2.0, 3.89, 4.033, 5.023, 9.0, 11.0, 9])
-data = Data(x, y)
+data = Interpolation(x, y)
 point = Point(5.4)
 
 
