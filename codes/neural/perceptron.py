@@ -29,7 +29,7 @@ class Layer:
     
 
 class model:
-    def __init__(self, input_x, input_y, epochs=100, 
+    def __init__(self, input_x, input_y, epochs=50, 
                  learning_rate=0.01, batch_size=10,
                  loss=Loss_function.mean_squared_error, 
                  activation=Activation_function.sigma):
@@ -57,7 +57,7 @@ class model:
             self.layers[i].input = self.activation(self.layers[i - 1].output)
             self.layers[i].output = np.dot(self.layers[i].input, self.layers[i].weights) + self.layers[i].biases
 
-        return 
+        return self.layers[-1].output
     
     def backward(self, error):
         for layer in reversed(self.layers):
@@ -71,7 +71,7 @@ class model:
         for j in range(self.epochs):
             err = 0
             for i in range(len(self.input_x)):
-                self.forward(self.input_x[i])
+                print(f"{self.forward(self.input_x[i])} pred {self.input_y[i]} true")
                 error = self.loss_d(self.input_y[i], self.layers[-1].output)
                 self.backward(error)
                 err += self.loss(self.input_y[i], self.layers[-1].output)
