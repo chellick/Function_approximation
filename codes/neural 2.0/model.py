@@ -7,6 +7,9 @@ class Layer:
         self.shape = shape # first stands for input shape: n-neurons of prev layer, second: n-neurons of given layer
         self.weights = self.init_weights()
         self.biases = self.init_biases()
+        self.input = None
+        self.output = None
+
     
     def init_weights(self):
         return np.random.randn(self.shape[0], self.shape[1])
@@ -29,7 +32,7 @@ class Model:
     def create_base(self, first_shape=None):
         if self.typen == None or self.typen == 'Single':
             if first_shape is None:
-                start = Layer((0, 1)) # start shape with 1 neuron input 
+                start = Layer((1, self.shape[1])) # start shape with 1 neuron input 
             else:
                 start = Layer((0, first_shape))
             self.layers.append(start)
@@ -43,14 +46,30 @@ class Model:
             self.layers.append(final)
 
         return 'Base created'
+    
+    def forward(self, x_input):
+        output = x_input
+        for layer in self.layers:
+            layer.input = output
+            layer.output = np.dot(output, layer.weights) + layer.biases
+            output = self.activation(layer.output)
+            # print(output, 'output')
+        return output
+    
+
+
+
 
 m = Model([], [], Activation_function.sigma, 
           Optimisers.gradient, Loss_function.mean_squared_error, 
           None, (4, 2))
 
 
-
 m.create_base()
+print(m.forward(1))
 
-for l in m.layers:
-    print(l.weights)
+
+
+
+
+
