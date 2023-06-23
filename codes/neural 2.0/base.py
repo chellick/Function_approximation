@@ -45,7 +45,7 @@ class Loss_function:
 
     @staticmethod
     def mse_derivative(y_true, y_pred):
-        return 2 * (y_pred - y_true) * (1 / y_pred.size)
+        return 2 * (y_pred - y_true) / y_pred.size
 
     @staticmethod
     def mean_absolute_error(y_true, y_pred):
